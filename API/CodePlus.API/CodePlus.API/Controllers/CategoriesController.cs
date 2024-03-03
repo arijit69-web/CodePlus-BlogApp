@@ -29,6 +29,8 @@ namespace CodePlus.API.Controllers
          */
 
         [HttpPost]
+        [Authorize(Roles = "Writer")]
+
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequestDto request)
         {
             // Map DTO to Domain Model
@@ -50,7 +52,7 @@ namespace CodePlus.API.Controllers
 
             return Ok(response);
         }
-         [HttpGet]
+        [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
             var caterogies = await categoryRepository.GetAllAsync();
@@ -96,6 +98,8 @@ namespace CodePlus.API.Controllers
 
         [HttpPut]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
+
         public async Task<IActionResult> EditCategory([FromRoute] Guid id, UpdateCategoryRequestDto request)
         {
             // Convert DTO to Domain Model
@@ -125,6 +129,8 @@ namespace CodePlus.API.Controllers
         }
         [HttpDelete]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
+
         public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
         {
             var category = await categoryRepository.DeleteAsync(id);
